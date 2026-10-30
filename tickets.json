@@ -1,0 +1,20 @@
+  [
+    {
+      "id": 1,
+      "equipment": "Router A",
+      "description": "Connection failure",
+      "priority": "HIGH",
+      "status": "OPEN",
+      "technician": "",
+      "resolution": ""
+    },
+    {
+      "id": 2,
+      "equipment": "Laptop B",
+      "description": "Update required",
+      "priority": "LOW",
+      "status": "ASSIGNED",
+      "technician": "Amina",
+      "resolution": ""
+    }
+]

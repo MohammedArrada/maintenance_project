@@ -1,0 +1,112 @@
+{% extends "base.html" %}
+
+{% block title %}Dashboard{% endblock %}
+
+{% block content %}
+
+
+
+<h1>Summary</h1>
+<table>
+    <tr>
+        <th>Total</th><th>Open</th><th>Assigned</th><th>In progress</th><th>Closed</th>
+    </tr>
+    <tr>
+        <td>{{ summary.total_tickets }}</td>
+        <td>{{ summary.open_tickets }}</td>
+        <td>{{ summary.assigned_tickets }}</td>
+        <td>{{ summary.in_progress_tickets }}</td>
+        <td>{{ summary.closed_tickets }}</td>
+    </tr>
+</table>
+
+<h2>Technician workload</h2>
+<table>
+    <tr><th>Technician</th><th>Active tickets</th></tr>
+    {% for name, count in workload.items() %}
+    <tr>
+        <td>{{ name }}</td>
+        <td>{{ count }}</td>
+    </tr>
+    {% endfor %}
+</table>
+
+<h2>High priority (not closed)</h2>
+<table>
+    <tr><th>ID</th><th>Equipment</th><th>Description</th><th>Status</th><th>Technician</th></tr>
+    {% for t in high_priority %}
+    <tr>
+        <td>{{ t['id'] }}</td>
+        <td>{{ t['equipment'] }}</td>
+        <td>{{ t['description'] }}</td>
+        <td>{{ t['status'] }}</td>
+        <td>{{ t['technician'] or "N/A" }}</td>
+    </tr>
+    {% else %}
+    <tr><td colspan="5">No high priority tickets.</td></tr>
+    {% endfor %}
+</table>
+
+<h2>Completed tickets</h2>
+<table>
+    <tr><th>ID</th><th>Equipment</th><th>Description</th><th>Technician</th></tr>
+    {% for t in completed %}
+    <tr>
+        <td>{{ t['id'] }}</td>
+        <td>{{ t['equipment'] }}</td>
+        <td>{{ t['description'] }}</td>
+        <td>{{ t['technician'] or "N/A" }}</td>
+    </tr>
+    {% else %}
+    <tr><td colspan="4">No completed tickets.</td></tr>
+    {% endfor %}
+</table>
+
+
+
+<h1>Tickets</h1>
+<table>
+    
+    <tr>
+        <th>#</th><th>ID</th><th>Equipement</th><th>Description</th>
+        <th>Priority</th><th>Status</th><th>Technician (m)</th><th>Resolution (m/s)</th><th>Status</th>
+    </tr>
+    {% for a in tickets %}
+    <tr>
+        <td>{{ loop.index }}</td>
+        <td>{{ a.id }}</td>
+        <td>{{ a.equipment }}</td>
+        <td>{{ a.description }}</td>
+        <td>{{ a.priority | default("N/A", true) }}</td>
+        <td>{{ a.status }}</td>
+        <td>{{ a.technician | default("N/A", true) }}</td>
+        <td>{{ a.resolution | default("N/A", true) }}</td>
+    </tr>
+    {% else %}
+    <tr><td colspan="9">No tickets data available.</td></tr>
+    {% endfor %}
+</table>
+
+
+<h1>Technicians</h1>
+
+<table>
+    
+    <tr>
+        <th>#</th><th>Name</th><th>Active limite</th>
+    </tr>
+    {% for t in technicians %}
+    <tr>
+        <td>{{ loop.index }}</td>
+        <td>{{ t.name }}</td>
+        <td>{{ t.active_limit }}</td>
+    </tr>
+    {% else %}
+    <tr><td colspan="9">No technicians data available.</td></tr>
+    {% endfor %}
+</table>
+
+
+
+{% endblock %}
+
